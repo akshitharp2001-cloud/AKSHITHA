@@ -1,0 +1,8 @@
+{
+  "id": "6aeef62417d9c925e16c0dac",
+  "schemaVersion": 1,
+  "title": "Dhanvandri Kitchen Dashboard",
+  "description": "Modern restaurant management dashboard for Dhanvandri Kitchen with booking management, table tracking, customer database, WhatsApp integration, reports and charts.",
+  "entry": "src/main.tsx",
+  "bindings": []
+}
