@@ -1,32 +1,39 @@
-import {
-  Card,
-  KpiRow,
-  KpiTile,
-  PageHeader,
-  RefreshAllButton,
-} from "@makoai/app-sdk/ui";
+import React, { useState } from 'react';
+import { AppProvider } from './context/AppContext';
+import Layout from './components/Layout';
+import Dashboard from './pages/Dashboard';
+import Bookings from './pages/Bookings';
+import Customers from './pages/Customers';
+import Tables from './pages/Tables';
+import Reports from './pages/Reports';
+import WhatsApp from './pages/WhatsApp';
 
-// Mako's house dashboard kit — see node_modules/@makoai/app-sdk/README.md.
+function AppContent() {
+  const [page, setPage] = useState('dashboard');
+
+  const renderPage = () => {
+    switch (page) {
+      case 'dashboard': return <Dashboard />;
+      case 'bookings': return <Bookings />;
+      case 'customers': return <Customers />;
+      case 'tables': return <Tables />;
+      case 'reports': return <Reports />;
+      case 'whatsapp': return <WhatsApp />;
+      default: return <Dashboard />;
+    }
+  };
+
+  return (
+    <Layout currentPage={page} onNavigate={setPage}>
+      {renderPage()}
+    </Layout>
+  );
+}
+
 export default function App() {
   return (
-    <main className="page">
-      <PageHeader
-        title="Dhanvandri Kitchen Dashboard"
-        subtitle="Built with Mako Apps — edit src/App.tsx to get started."
-        actions={<RefreshAllButton bindings={__APP_BINDING_NAMES__} />}
-      />
-      <KpiRow>
-        <KpiTile label="Your first KPI" value="—" hint="Add a binding, then useQuery()" />
-      </KpiRow>
-      <Card
-        title="Getting started"
-        description="Data comes from bindings/<name>.sql; read it with useQuery('<name>')."
-      >
-        <p className="muted">
-          The theme tokens (--background, --brand, --chart-1…) and the kit
-          come from @makoai/app-sdk: style with the tokens, reuse the kit.
-        </p>
-      </Card>
-    </main>
+    <AppProvider>
+      <AppContent />
+    </AppProvider>
   );
 }
